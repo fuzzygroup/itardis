@@ -1,0 +1,306 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>iTardis</title>
+<!--        <link rel="stylesheet" href="../../themes/css/jqtouch.css" title="jQTouch"> -->
+        <link rel="stylesheet" href="javascripts/jqtouch-1.0-b4-rc/themes/css/jqtouch.css" title="jQTouch">
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+        <script src="javascripts/jqtouch-1.0-b4-rc/src/jqtouch-jquery.js" type="text/javascript" charset="utf-8"></script>
+        <script src="javascripts/jqtouch-1.0-b4-rc/src/jqtouch-jquery.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="javascripts/jqtouch-1.0-b4-rc/src/jqtouch.js" type="text/javascript" charset="utf-8"></script>
+        <script src="javascripts/jqtouch-1.0-b4-rc/src/jqtouch.min.js" type="text/javascript" charset="utf-8"></script>
+        <style type="text/css" media="screen">@import "javascripts/jqtouch-1.0-b4-rc/themes/css/jqtouch.css";</style>
+        <script src="javascripts/jqtouch-1.0-b4-rc/src/jqtouch.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="javascripts/play_sound.js" type="text/javascript" charset="utf-8"></script>
+
+
+        <script type="text/javascript" charset="utf-8">
+            var jQT = new $.jQTouch({
+                icon: 'jqtouch.png',
+                icon4: 'jqtouch4.png',
+                addGlossToIcon: false,
+                startupScreen: 'jqt_startup.png',
+                statusBar: 'black-translucent',
+                themeSelectionSelector: '#jqt #themes ul',
+                preloadImages: []
+            });
+
+            // Some sample Javascript functions:
+            $(function(){
+
+                // Show a swipe event on swipe test
+                $('#swipeme').swipe(function(evt, data) {
+                    var details = !data ? '': '<strong>' + data.direction + '/' + data.deltaX +':' + data.deltaY + '</strong>!';
+                    $(this).html('You swiped ' + details );
+                    $(this).parent().after('<li>swiped!</li>')
+                });
+
+                $('#tapme').tap(function(){
+                    $(this).parent().after('<li>tapped!</li>')
+                });
+
+                $('a[target="_blank"]').bind('click', function() {
+                    if (confirm('This link opens in a new window.')) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                });
+
+                // Page animation callback events
+                $('#pageevents').
+                    bind('pageAnimationStart', function(e, info){
+                        $(this).find('.info').append('Started animating ' + info.direction + '&hellip;  And the link ' +
+                            'had this custom data: ' + $(this).data('referrer').data('custom') + '<br>');
+                    }).
+                    bind('pageAnimationEnd', function(e, info){
+                        $(this).find('.info').append('Finished animating ' + info.direction + '.<br><br>');
+
+                    });
+
+                // Page animations end with AJAX callback event, example 1 (load remote HTML only first time)
+                $('#callback').bind('pageAnimationEnd', function(e, info){
+                    // Make sure the data hasn't already been loaded (we'll set 'loaded' to true a couple lines further down)
+                    if (!$(this).data('loaded')) {
+                        // Append a placeholder in case the remote HTML takes its sweet time making it back
+                        // Then, overwrite the "Loading" placeholder text with the remote HTML
+                        $(this).append($('<div>Loading</div>').load('ajax.html .info', function() {
+                            // Set the 'loaded' var to true so we know not to reload
+                            // the HTML next time the #callback div animation ends
+                            $(this).parent().data('loaded', true);
+                        }));
+                    }
+                });
+                // Orientation callback event
+                $('#jqt').bind('turn', function(e, data){
+                    $('#orient').html('Orientation: ' + data.orientation);
+                });
+
+            });
+        </script>
+        <style type="text/css" media="screen">
+            #jqt.fullscreen #home .info {
+                display: none;
+            }
+            div#jqt #about {
+                padding: 100px 10px 40px;
+                text-shadow: rgba(0, 0, 0, 0.3) 0px -1px 0;
+                color: #999;
+                font-size: 13px;
+                text-align: center;
+                background: #161618;
+            }
+            div#jqt #about p {
+                margin-bottom: 8px;
+            }
+            div#jqt #about a {
+                color: #fff;
+                font-weight: bold;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+  <body>
+    <div id="jqt">
+      <div id="about" class="selectable">
+        <p><img src="images/tardis_icon.jpg" /></p>
+        <p><strong>iTardis</strong><br>Version 0.01 beta<br>
+            By J. Scott Johnson</a></p>
+        <p><em>A JavaScript / jQuery Powered<br/> Tardis for your iPhone.</em></p>
+        <p>
+            Contact me at fuzzygroup [a]t gmail.com
+        </p>
+        <p><br><br><a href="#" class="grayButton goback">Close</a></p>
+      </div>
+
+
+      <div id="home" class="current">
+        <div class="toolbar">
+            <h1>iTardis</h1>
+            <a class="button slideup" id="infoButton" href="#about">About</a>
+        </div>
+        <div id="start">
+          <!--<img src="images/tardis300x300.jpg" size="300x300">-->
+          <div align="center">
+            <a href="#screwdrivers"><img src="images/TARDISDoctorWho-thumb-459x720-66559.png" height="375" width="" style="margin-top: 15px;"></a>
+          </div>
+          <div align="center">
+            <audio controls="controls">
+              <source src="sounds/tardis_ringtone-ringtone.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+            </audio><br/>
+            <div align="center" style="margin-top: 5px;">
+            <a href="#doctors">Doctors</a> | <a href="#enemies">Enemies</a>
+          </div>
+          </div>
+        </div>
+      </div>
+
+            <div id="screwdrivers">
+                <div class="toolbar">
+                    <h1>Sonic Screwdrivers</h1>
+                    <a class="back" href="#">Home</a>
+                </div>
+                <div class="scroll">
+                  <div align="center">
+                    <p>&nbsp;</p>
+                    <img src="images/d7d8_doctor_who_new_sonic_screwdriver.gif" height="375" style="margin-top: 15px;">
+                  </center>
+                  <div align="center">
+                  <audio controls="controls">
+                    <source src="sounds/sonicscrewdriver.mp3" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                  </audio>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+            <div id="doctors">
+                <div class="toolbar">
+                    <h1>Doctors</h1>
+                    <a class="back" href="#">Home</a>
+                </div>
+                <div class="scroll">
+                  <div align="center">
+                    <a href="#doctors_mattsmith"><img src="images/david_tenant.jpg" height="375"></a>
+                  </center>
+                  <div align="center">
+                  <audio controls="controls">
+                    <source src="sounds/dontblink2.mp3" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                  </audio>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+            <div id="doctors_mattsmith">
+                <div class="toolbar">
+                    <h1>Doctors</h1>
+                    <a class="back" href="#">Home</a>
+                </div>
+                <div class="scroll">
+                  <div align="center">
+                    <a href="#doctors_christophereccleston"><img src="images/doctor-who-matt-smith1-460x630.jpg" height="375"></a>
+                  </center>
+                  <div align="center">
+                  <audio controls="controls">
+                    <source src="sounds/matt_smith_important.mp3" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                  </audio>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+
+
+            <div id="doctors_christophereccleston">
+                <div class="toolbar">
+                    <h1>Doctors</h1>
+                    <a class="back" href="#">Home</a>
+                </div>
+                <div class="scroll">
+                  <div align="center">
+                    <img src="images/chriseccleston.jpg" height="375">
+                  </center>
+                  <div align="center">
+                  <audio controls="controls">
+                    <source src="sounds/christopher_eccleston_run.mp3" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                  </audio>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+            <div id="enemies">
+                <div class="toolbar">
+                    <h1>Daleks</h1>
+                    <a class="back" href="#home">Home</a>
+                </div>
+                <div class="scroll">
+                  <div align="center">
+                    <a href="#enemies_judoon"><img src="images/dalek.jpg" height="375"></a>
+                  </center>
+                  <div align="center">
+                  <audio controls="controls">
+                    <source src="sounds/exterminate.mp3" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                  </audio>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+            <div id="enemies_judoon">
+                <div class="toolbar">
+                    <h1>Judoon</h1>
+                    <a class="back" href="#home">Home</a>
+                </div>
+                <div class="scroll">
+                  <div align="center">
+                    <a href="#enemies_cybermen"><img src="images/judoon.jpg" height="375"></a>
+                  </center>
+                  <div align="center">
+                  <audio controls="controls">
+                    <source src="sounds/youwillbecat.mp3" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                  </audio>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+
+
+            <div id="enemies_cybermen">
+                <div class="toolbar">
+                    <h1>Cybermen</h1>
+                    <a class="back" href="#home">Home</a>
+                </div>
+                <div class="scroll">
+                  <div align="center">
+                    <a href="#enemies_ood"><img src="images/cybermen.jpg" height="375"></a>
+                  </center>
+                  <div align="center">
+                  <audio controls="controls">
+                    <source src="sounds/deleted.mp3" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                  </audio>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+            <div id="enemies_ood">
+                <div class="toolbar">
+                    <h1>Ood</h1>
+                    <a class="back" href="#home">Home</a>
+                </div>
+                <div class="scroll">
+                  <div align="center">
+                    <img src="images/ood.jpg" height="375">
+                  </center>
+                  <div align="center">
+                  <audio controls="controls">
+                    <source src="sounds/ood-feed.mp3" type="audio/mpeg">
+                  Your browser does not support the audio element.
+                  </audio>
+                  </div>
+                </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+    </body>
+</html>

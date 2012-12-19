@@ -1,0 +1,22 @@
+~/javascript/itardis   rvm use ruby-1.9.2-p290                                                                                                                                                                                            < ~/javascript/itardis >
+Using /Users/sjohnson/.rvm/gems/ruby-1.9.2-p290
+~/javascript/itardis rvm gemset create itardis                                                                                                                                                                                            < ~/javascript/itardis >
+'itardis' gemset created (/Users/sjohnson/.rvm/gems/ruby-1.9.2-p290@itardis).
+~/javascript/itardis   rvm use ruby-1.9.2-p290@itardis                                                                                                                                                                                    < ~/javascript/itardis >
+Using /Users/sjohnson/.rvm/gems/ruby-1.9.2-p290 with gemset itardis
+~/javascript/itardis gem install bundler                                                                                                                                                                                                  < ~/javascript/itardis >
+Fetching: bundler-1.2.3.gem (100%)
+Successfully installed bundler-1.2.3
+1 gem installed
+Installing ri documentation for bundler-1.2.3...
+bundle installInstalling RDoc documentation for bundler-1.2.3...
+~/javascript/itardis bundle install                                                                                                                                                                                                       < ~/javascript/itardis >
+Fetching gem metadata from http://rubygems.org/..........
+Installing rack (1.4.1) 
+Using bundler (1.2.3) 
+Your bundle is complete! Use `bundle show [gemname]` to see where a bundled gem is installed.
+
+
+rackup config.ru
+
+https://devcenter.heroku.com/articles/creating-apps
